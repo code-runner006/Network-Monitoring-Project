@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div id="toolbar">
+    <div class="toolbar-group">
+        <button class="tb-btn green" id="startBtn" onclick="startMonitoring()">
+            Start
+        </button>
+        <button class="tb-btn red" id="stopBtn" onclick="stopMonitoring()" disabled>
+            Stop
+        </button>
+        <div class="tb-divider"></div>
+        <button class="tb-btn blue" onclick="openLogsPanel()">
+            Load Logs
+        </button>
+        <button class="tb-btn gray" onclick="resetFilter()">
+            Clear Filter
+        </button>
+    </div>
+
+    <div class="toolbar-group" id="filter-group">
+        <label class="tb-label">Protocol</label>
+        <select id="protocolFilter" class="tb-select">
+            <option value="">All</option>
+            <option value="TCP">TCP</option>
+            <option value="UDP">UDP</option>
+            <option value="ICMP">ICMP</option>
+            <option value="OTHER">Other</option>
+        </select>
+        <label class="tb-label">Src IP</label>
+        <input type="text" id="srcIpFilter" class="tb-input" placeholder="e.g. 192.168.1.5">
+        <label class="tb-label">Dst IP</label>
+        <input type="text" id="dstIpFilter" class="tb-input" placeholder="e.g. 8.8.8.8">
+        <button class="tb-btn blue" onclick="applyFilter()">
+            Filter
+        </button>
+    </div>
+</div>
+
+<div id="main-layout">
+
+    <div id="table-pane">
+        <div class="pane-header">
+            <span class="pane-title">CAPTURED PACKETS</span>
+            <span id="packetCount" class="pane-count">0 packets</span>
+        </div>
+        <div id="table-scroll">
+            <table id="packetTable">
+                <thead>
+                    <tr>
+                        <th class="col-num">#</th>
+                        <th class="col-time">Time</th>
+                        <th class="col-ip">Source IP</th>
+                        <th class="col-ip">Destination IP</th>
+                        <th class="col-proto">Protocol</th>
+                        <th class="col-port">Src Port</th>
+                        <th class="col-port">Dst Port</th>
+                        <th class="col-service">Service</th>
+                        <th class="col-size">Size</th>
+                    </tr>
+                </thead>
+                <tbody id="packetTableBody">
+                    <tr class="empty-row">
+                        <td colspan="9">
+                            <div class="empty-state">
+                                <span>No packets captured — click Start to begin monitoring</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="stats-pane">
+        <div class="pane-header">
+            <span class="pane-title">SESSION STATS</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-key">Total Packets</span>
+            <span class="stat-val" id="totalPackets">0</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-row">
+            <span class="stat-key">TCP</span>
+            <span class="stat-val tcp-text" id="tcpCount">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-key">UDP</span>
+            <span class="stat-val udp-text" id="udpCount">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-key">ICMP</span>
+            <span class="stat-val icmp-text" id="icmpCount">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-key">Other</span>
+            <span class="stat-val" id="otherCount">0</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-row">
+            <span class="stat-key">Avg Size</span>
+            <span class="stat-val" id="avgSize">0 B</span>
+        </div>
+    </div>
+
+</div>
+
+<div id="logs-panel">
+    <div id="logs-panel-header">
+        <span class="pane-title">SAVED LOGS</span>
+        <div class="logs-controls">
+            <button class="tb-btn gray" onclick="closeLogsPanel()">Close</button>
+        </div>
+    </div>
+    <div id="logs-table-scroll">
+        <table id="logsTable">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Source IP</th>
+                    <th>Destination IP</th>
+                    <th>Protocol</th>
+                    <th>Src Port</th>
+                    <th>Dst Port</th>
+                    <th>Service</th>
+                    <th>Size</th>
+                </tr>
+            </thead>
+            <tbody id="logsTableBody">
+                <tr class="empty-row">
+                    <td colspan="8">
+                        <div class="empty-state">Select a session and click Load</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

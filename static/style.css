@@ -1,0 +1,431 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: #d4d4d4;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+#toolbar {
+    background-color: #252525;
+    border-bottom: 1px solid #333333;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+#filter-group {
+    margin-left: auto;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.tb-btn {
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.tb-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.tb-btn.green {
+    background-color: #2d5a2d;
+    color: #7ec87e;
+    border-color: #3a6e3a;
+}
+
+.tb-btn.green:hover {
+    background-color: #3a703a;
+}
+
+.tb-btn.red {
+    background-color: #5a2020;
+    color: #d47878;
+    border-color: #6e3030;
+}
+
+.tb-btn.red:hover {
+    background-color: #703030;
+}
+
+.tb-btn.blue {
+    background-color: #1a3a5a;
+    color: #6aabdf;
+    border-color: #1e4a70;
+}
+
+.tb-btn.blue:hover {
+    background-color: #1e4a70;
+}
+
+.tb-btn.gray {
+    background-color: #333333;
+    color: #aaaaaa;
+    border-color: #444444;
+}
+
+.tb-btn.gray:hover {
+    background-color: #404040;
+}
+
+.tb-divider {
+    width: 1px;
+    height: 20px;
+    background-color: #333333;
+    margin: 0 4px;
+}
+
+.tb-label {
+    font-size: 10px;
+    color: #7a7a7a;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tb-select {
+    height: 24px;
+    background-color: #1a1a1a;
+    border: 1px solid #3a3a3a;
+    color: #d4d4d4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 0 6px;
+    border-radius: 2px;
+    outline: none;
+    width: 80px;
+}
+
+.tb-input {
+    height: 24px;
+    background-color: #1a1a1a;
+    border: 1px solid #3a3a3a;
+    color: #d4d4d4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 0 6px;
+    border-radius: 2px;
+    outline: none;
+    width: 130px;
+}
+
+.tb-select:focus {
+    border-color: #1e88e5;
+}
+
+.tb-input:focus {
+    border-color: #1e88e5;
+}
+
+#main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    border-bottom: 1px solid #333333;
+}
+
+#table-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-right: 1px solid #333333;
+}
+
+.pane-header {
+    background-color: #2a2a2a;
+    border-bottom: 1px solid #333333;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.pane-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.pane-count {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.15);
+    padding: 1px 8px;
+    border-radius: 10px;
+    border: 1px solid #2d6e30;
+}
+
+#table-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+#table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#table-scroll::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+}
+
+#table-scroll::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+    border-radius: 4px;
+}
+
+#packetTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#packetTable thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#packetTable th {
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #3a3a3a;
+    border-right: 1px solid #2a2a2a;
+    padding: 5px 8px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+#packetTable td {
+    padding: 4px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #d4d4d4;
+    border-bottom: 1px solid #2a2a2a;
+    border-right: 1px solid #2a2a2a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#packetTable tbody tr {
+    background-color: #1e1e1e;
+}
+
+.col-num     { width: 44px; }
+.col-time    { width: 80px; }
+.col-ip      { width: 140px; }
+.col-proto   { width: 76px; }
+.col-port    { width: 74px; }
+.col-service { width: 100px; }
+.col-size    { width: 70px; }
+
+.proto-badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    min-width: 42px;
+}
+
+.proto-badge.tcp {
+    background-color: rgba(76, 175, 80, 0.18);
+    color: #7ec87e;
+    border: 1px solid #2d5a2d;
+}
+
+.proto-badge.udp {
+    background-color: rgba(30, 136, 229, 0.18);
+    color: #6aabdf;
+    border: 1px solid #1a3a5a;
+}
+
+.proto-badge.icmp {
+    background-color: rgba(251, 140, 0, 0.18);
+    color: #ffc46a;
+    border: 1px solid #6a3a00;
+}
+
+.proto-badge.other {
+    background-color: rgba(142, 36, 170, 0.18);
+    color: #cc88e8;
+    border: 1px solid #4a1a5a;
+}
+
+.empty-row td {
+    border: none !important;
+}
+
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #7a7a7a;
+    font-size: 12px;
+}
+
+#stats-pane {
+    width: 190px;
+    flex-shrink: 0;
+    background-color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+}
+
+.stat-key {
+    font-size: 11px;
+    color: #7a7a7a;
+    font-weight: 500;
+}
+
+.stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #eeeeee;
+    font-weight: 500;
+}
+
+.tcp-text  { color: #7ec87e; }
+.udp-text  { color: #6aabdf; }
+.icmp-text { color: #ffc46a; }
+
+.stat-divider {
+    height: 1px;
+    background-color: #2a2a2a;
+    margin: 2px 0;
+}
+
+#logs-panel {
+    height: 240px;
+    background-color: #181818;
+    border-top: 2px solid #1e88e5;
+    display: none;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+#logs-panel-header {
+    background-color: #2a2a2a;
+    border-bottom: 1px solid #333333;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.logs-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#logs-table-scroll {
+    flex: 1;
+    overflow: auto;
+}
+
+#logs-table-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#logs-table-scroll::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+}
+
+#logs-table-scroll::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+    border-radius: 4px;
+}
+
+#logsTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#logsTable th {
+    background-color: #222222;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #2a2a2a;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+}
+
+#logsTable td {
+    padding: 3px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #d4d4d4;
+    border-bottom: 1px solid #2a2a2a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
