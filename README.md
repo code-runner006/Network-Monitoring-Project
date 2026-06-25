@@ -4,6 +4,26 @@ A real-time network packet capture and analysis tool built with Python and Flask
 
 ---
 
+## Screenshots
+
+### Idle State
+
+![Idle State](screenshots/idle-state.png)
+
+### Live Packet Capture
+
+![Live Capture](screenshots/live-capture.png)
+
+### Filtered by Protocol & Destination IP
+
+![Filtered View](screenshots/filtered-view.png)
+
+### Saved Logs Panel
+
+![Saved Logs](screenshots/saved-logs.png)
+
+---
+
 ## Features
 
 - Real-time packet sniffing using Scapy
@@ -42,16 +62,10 @@ network_monitor/
 
 ## Installation
 
-**Step 1 — Install the required libraries:**
+**Install the required libraries:**
 
 ```
 pip install flask scapy
-```
-
-**Step 2 — Navigate into the project folder:**
-
-```
-cd path\to\CN_Project
 ```
 
 ---
